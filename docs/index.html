@@ -15,13 +15,13 @@
   <header class="app-header">
     <h1>TO-DO</h1>
     <p class="subtitle">
-      <span id="taskCount">0 TASKS</span> — <span id="completedCount">0 COMPLETED</span>
+      <span id="taskCount">0 TAREFAS</span> — <span id="completedCount">0 COMPLETAS</span>
     </p>
   </header>
 
   <section class="progress-section">
     <div class="progress-label">
-      <span>PROGRESS</span>
+      <span>PROGRESSO</span>
       <span id="progressPercent">0%</span>
     </div>
     <div class="progress-bar">
@@ -32,24 +32,24 @@
   <section class="input-section">
     <div class="input-row">
       <input type="text" id="taskInput" placeholder="new task..." maxlength="120">
-      <button id="addBtn">+ ADD</button>
+      <button id="addBtn">+ ADICIONAR</button>
     </div>
 
     <div class="options-row">
       <div class="category-select-wrap">
         <select id="categorySelect">
-          <option value="work">WORK</option>
-          <option value="personal">PERSONAL</option>
-          <option value="study">STUDY</option>
-          <option value="health">HEALTH</option>
-          <option value="errands">ERRANDS</option>
+          <option value="work">TRABALHO</option>
+          <option value="personal">PESSOAL</option>
+          <option value="study">ESTUDO</option>
+          <option value="health">SAÚDE</option>
+          <option value="errands">RECADOS</option>
         </select>
       </div>
 
       <div class="priority-select">
-        <span class="priority-label">PRIORITY:</span>
+        <span class="priority-label">PRIORIDADE:</span>
         <button class="priority-btn" data-priority="high">HIGH</button>
-        <button class="priority-btn is-active" data-priority="medium">MEDIUM</button>
+        <button class="priority-btn is-active" data-priority="medium">MEDIO</button>
         <button class="priority-btn" data-priority="low">LOW</button>
       </div>
     </div>
@@ -57,28 +57,28 @@
 
   <section class="filter-section">
     <div class="filter-group status-filters">
-      <button class="filter-btn is-active" data-filter="all">ALL</button>
-      <button class="filter-btn" data-filter="active">ACTIVE</button>
-      <button class="filter-btn" data-filter="done">DONE</button>
+      <button class="filter-btn is-active" data-filter="all">TODOS</button>
+      <button class="filter-btn" data-filter="active">ATIVOS</button>
+      <button class="filter-btn" data-filter="done">CONCLUIDOS</button>
     </div>
 
     <div class="filter-group category-filters">
-      <button class="cat-btn is-active" data-cat="all">ALL</button>
-      <button class="cat-btn" data-cat="work">WORK</button>
-      <button class="cat-btn" data-cat="personal">PERSONAL</button>
-      <button class="cat-btn" data-cat="study">STUDY</button>
-      <button class="cat-btn" data-cat="health">HEALTH</button>
-      <button class="cat-btn" data-cat="errands">ERRANDS</button>
+      <button class="cat-btn is-active" data-cat="all">TODOS</button>
+      <button class="cat-btn" data-cat="work">TRABALHO</button>
+      <button class="cat-btn" data-cat="personal">PESSOAL</button>
+      <button class="cat-btn" data-cat="study">ESTUDO</button>
+      <button class="cat-btn" data-cat="health">SAÚDE</button>
+      <button class="cat-btn" data-cat="errands">RECADOS</button>
     </div>
   </section>
 
   <ul class="task-list" id="taskList"></ul>
 
-  <p class="empty-state" id="emptyState">No tasks here. Add one above.</p>
+  <p class="empty-state" id="emptyState">[ SEM TAREFAS ]</p>
 
   <footer class="app-footer">
-    <span id="remainingCount">0 remaining</span>
-    <button id="clearCompleted">CLEAR COMPLETED</button>
+    <span id="remainingCount">0 restantes</span>
+    <button id="clearCompleted">LIMPAR AS COMPLETAS</button>
   </footer>
 
 </div>
