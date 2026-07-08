@@ -1,9 +1,33 @@
 // ----- State -----
 const STORAGE_KEY = 'todo-tasks-v1';
+let storage = null;
+
+function getStorage() {
+  try {
+    const testKey = '__storage_test__';
+    window.localStorage.setItem(testKey, testKey);
+    window.localStorage.removeItem(testKey);
+    return window.localStorage;
+  } catch (error) {
+    try {
+      const testKey = '__storage_test__';
+      window.sessionStorage.setItem(testKey, testKey);
+      window.sessionStorage.removeItem(testKey);
+      return window.sessionStorage;
+    } catch (sessionError) {
+      console.warn('Storage is not available in this browser context:', sessionError);
+      return null;
+    }
+  }
+}
+
+storage = getStorage();
 
 function loadTasks() {
+  if (!storage) return null;
+
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = storage.getItem(STORAGE_KEY);
     if (!saved) return null;
 
     const parsed = JSON.parse(saved);
@@ -15,7 +39,8 @@ function loadTasks() {
 }
 
 function saveTasks() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  if (!storage) return;
+  storage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
 let tasks = loadTasks() ?? [
@@ -185,4 +210,8 @@ categoryFilterBtns.forEach(btn => {
 clearCompletedBtn.addEventListener('click', clearCompleted);
 
 // ----- Init -----
+if (!storage) {
+  console.warn('No storage available, so tasks will not persist after reload.');
+}
+
 render();
