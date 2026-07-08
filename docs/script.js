@@ -1,9 +1,24 @@
 // ----- State -----
-// Data lives only in memory: it resets on page reload.
-// If you want it to persist, save/load `tasks` to localStorage
-// on your own server (localStorage isn't available in Claude's
-// artifact preview sandbox).
-let tasks = [
+const STORAGE_KEY = 'todo-tasks-v1';
+
+function loadTasks() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch (error) {
+    console.warn('Could not load tasks from storage:', error);
+    return null;
+  }
+}
+
+function saveTasks() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+}
+
+let tasks = loadTasks() ?? [
   { id: 1, text: 'Review Q3 budget projections', priority: 'high', category: 'work', done: false, date: 'Jul 5' },
   { id: 2, text: 'Buy groceries — oat milk, eggs, greens', priority: 'low', category: 'errands', done: false, date: 'Jul 5' },
   { id: 3, text: 'Finish reading Thinking, Fast and Slow', priority: 'medium', category: 'study', done: true, date: 'Jul 4' },
@@ -12,10 +27,12 @@ let tasks = [
   { id: 6, text: 'Submit design proposal to client', priority: 'high', category: 'work', done: false, date: 'Jul 6' }
 ];
 
-let nextId = tasks.length + 1;
+let nextId = tasks.length ? Math.max(...tasks.map(task => task.id)) + 1 : 1;
 let currentPriority = 'medium';
 let currentStatusFilter = 'all';
 let currentCategoryFilter = 'all';
+
+saveTasks();
 
 // ----- Elements -----
 const taskInput = document.getElementById('taskInput');
@@ -108,6 +125,7 @@ function addTask() {
     date: todayLabel()
   });
 
+  saveTasks();
   taskInput.value = '';
   taskInput.focus();
   render();
@@ -116,16 +134,19 @@ function addTask() {
 function toggleTask(id) {
   const task = tasks.find(t => t.id === id);
   if (task) task.done = !task.done;
+  saveTasks();
   render();
 }
 
 function deleteTask(id) {
   tasks = tasks.filter(t => t.id !== id);
+  saveTasks();
   render();
 }
 
 function clearCompleted() {
   tasks = tasks.filter(t => !t.done);
+  saveTasks();
   render();
 }
 
